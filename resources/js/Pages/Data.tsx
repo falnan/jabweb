@@ -15,8 +15,12 @@ import OrderTable from "../components/OrderTable";
 import OrderList from "../components/OrderList";
 import Header from "../components/Header";
 
-export default function Data({ data }: any) {
-    console.log(data);
+export default function Data({
+    data,
+    searchValue,
+    startDateValue,
+    endDateValue,
+}: any) {
     return (
         <CssVarsProvider disableTransitionOnChange>
             <CssBaseline />
@@ -97,8 +101,13 @@ export default function Data({ data }: any) {
                             Download Excel
                         </Button>
                     </Box>
-                    <OrderTable data={data} />
-                    <OrderList data={data.data} />
+                    <OrderTable
+                        data={data}
+                        searchValue={searchValue}
+                        startDateValue={startDateValue}
+                        endDateValue={endDateValue}
+                    />
+                    {/* <OrderList data={data} /> */}
                 </Box>
             </Box>
         </CssVarsProvider>

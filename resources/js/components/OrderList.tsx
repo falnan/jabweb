@@ -24,29 +24,8 @@ import BlockIcon from "@mui/icons-material/Block";
 import AutorenewRoundedIcon from "@mui/icons-material/AutorenewRounded";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-
-// const listItems = [
-//     {
-//         id: "INV-1234",
-//         date: "Feb 3, 2023",
-//         status: "Refunded",
-//         customer: {
-//             initial: "O",
-//             name: "Olivia Ryhe",
-//             email: "olivia@email.com",
-//         },
-//     },
-//     {
-//         id: "INV-1233",
-//         date: "Feb 3, 2023",
-//         status: "Paid",
-//         customer: {
-//             initial: "S",
-//             name: "Steve Hampton",
-//             email: "steve.hamp@email.com",
-//         },
-//     },
-// ];
+import { Button, FormLabel, Input, Sheet, Table } from "@mui/joy";
+import dayjs, { Dayjs } from "dayjs";
 
 function RowMenu() {
     return (
@@ -70,77 +49,86 @@ function RowMenu() {
     );
 }
 
-export default function OrderList(data: any) {
+export default function OrderList({ data }: any) {
     return (
-        // <Box sx={{ display: { xs: "block", sm: "none" } }}>
-        //     {data.map((listItem: any) => (
-        //         <List
-        //             key={listItem.id}
-        //             size="sm"
-        //             sx={{ "--ListItem-paddingX": 0 }}
-        //         >
-        //             <ListItem
-        //                 sx={{
-        //                     display: "flex",
-        //                     justifyContent: "space-between",
-        //                     alignItems: "start",
-        //                 }}
+        // <>
+        //     <Box sx={{ display: { xs: "block", sm: "none" } }}>
+        //         {data.data.map((listItem: any, idx: any) => (
+        //             <List
+        //                 key={listItem.id}
+        //                 size="sm"
+        //                 sx={{ "--ListItem-paddingX": 0 }}
         //             >
-        //                 <ListItemContent
+        //                 <ListItem
         //                     sx={{
         //                         display: "flex",
-        //                         gap: 2,
+        //                         justifyContent: "space-between",
         //                         alignItems: "start",
         //                     }}
         //                 >
-        //                     <ListItemDecorator>
-        //                         <Avatar size="sm">{listItem.resi}</Avatar>
-        //                     </ListItemDecorator>
-        //                     <div>
-        //                         <Typography
-        //                             gutterBottom
-        //                             sx={{ fontWeight: 600 }}
-        //                         >
-        //                             {listItem.resi}
-        //                         </Typography>
-        //                         <Typography level="body-xs" gutterBottom>
-        //                             {listItem.resi}
-        //                         </Typography>
-        //                         <Box
-        //                             sx={{
-        //                                 display: "flex",
-        //                                 alignItems: "center",
-        //                                 justifyContent: "space-between",
-        //                                 gap: 0.5,
-        //                                 mb: 1,
-        //                             }}
-        //                         >
-        //                             <Typography level="body-xs">
+        //                     <ListItemContent
+        //                         sx={{
+        //                             display: "flex",
+        //                             gap: 2,
+        //                             alignItems: "start",
+        //                         }}
+        //                     >
+        //                         <ListItemDecorator>
+        //                             <Typography>
+        //                                 {(data.current_page - 1) *
+        //                                     data.per_page +
+        //                                     idx +
+        //                                     1}
+        //                             </Typography>
+        //                         </ListItemDecorator>
+        //                         <div>
+        //                             <Typography
+        //                                 gutterBottom
+        //                                 sx={{ fontWeight: 600 }}
+        //                             >
         //                                 {listItem.resi}
         //                             </Typography>
-        //                             <Typography level="body-xs">
-        //                                 &bull;
+        //                             <Typography level="body-xs" gutterBottom>
+        //                                 {listItem.customer}
         //                             </Typography>
-        //                             <Typography level="body-xs">
-        //                                 {listItem.resi}
-        //                             </Typography>
-        //                         </Box>
-        //                         <Box
-        //                             sx={{
-        //                                 display: "flex",
-        //                                 alignItems: "center",
-        //                                 gap: 1,
-        //                                 mb: 1,
-        //                             }}
-        //                         >
-        //                             <Link level="body-sm" component="button">
-        //                                 Download
-        //                             </Link>
-        //                             <RowMenu />
-        //                         </Box>
-        //                     </div>
-        //                 </ListItemContent>
-        //                 {/* <Chip
+        //                             <Box
+        //                                 sx={{
+        //                                     display: "flex",
+        //                                     alignItems: "center",
+        //                                     justifyContent: "space-between",
+        //                                     gap: 0.5,
+        //                                     mb: 1,
+        //                                 }}
+        //                             >
+        //                                 <Typography level="body-xs">
+        //                                     {listItem.courier}
+        //                                 </Typography>
+        //                                 <Typography level="body-xs">
+        //                                     &bull;
+        //                                 </Typography>
+        //                                 <Typography level="body-xs">
+        //                                     {listItem.note}
+        //                                 </Typography>
+        //                             </Box>
+        //                             <Box
+        //                                 sx={{
+        //                                     display: "flex",
+        //                                     alignItems: "center",
+        //                                     gap: 1,
+        //                                     mb: 1,
+        //                                 }}
+        //                             >
+        //                                 <Link
+        //                                     level="body-sm"
+        //                                     component="button"
+        //                                 >
+        //                                     Download
+        //                                 </Link>
+        //                                 <RowMenu />
+        //                             </Box>
+        //                         </div>
+        //                     </ListItemContent>
+        //                     {/* <Chip
         //                     variant="soft"
         //                     size="sm"
         //                     startDecorator={
@@ -160,39 +148,40 @@ export default function OrderList(data: any) {
         //                 >
         //                     {listItem.status}
         //                 </Chip> */}
-        //             </ListItem>
-        //             <ListDivider />
-        //         </List>
-        //     ))}
-        //     <Box
-        //         className="Pagination-mobile"
-        //         sx={{
-        //             display: { xs: "flex", md: "none" },
-        //             alignItems: "center",
-        //             py: 2,
-        //         }}
-        //     >
-        //         <IconButton
-        //             aria-label="previous page"
-        //             variant="outlined"
-        //             color="neutral"
-        //             size="sm"
+        //                 </ListItem>
+        //                 <ListDivider />
+        //             </List>
+        //         ))}
+        //         <Box
+        //             className="Pagination-mobile"
+        //             sx={{
+        //                 display: { xs: "flex", md: "none" },
+        //                 alignItems: "center",
+        //                 py: 2,
+        //             }}
         //         >
-        //             <KeyboardArrowLeftIcon />
-        //         </IconButton>
-        //         <Typography level="body-sm" sx={{ mx: "auto" }}>
-        //             Page 1 of 10
-        //         </Typography>
-        //         <IconButton
-        //             aria-label="next page"
-        //             variant="outlined"
-        //             color="neutral"
-        //             size="sm"
-        //         >
-        //             <KeyboardArrowRightIcon />
-        //         </IconButton>
+        //             <IconButton
+        //                 aria-label="previous page"
+        //                 variant="outlined"
+        //                 color="neutral"
+        //                 size="sm"
+        //             >
+        //                 <KeyboardArrowLeftIcon />
+        //             </IconButton>
+        //             <Typography level="body-sm" sx={{ mx: "auto" }}>
+        //                 Page 1 of 10
+        //             </Typography>
+        //             <IconButton
+        //                 aria-label="next page"
+        //                 variant="outlined"
+        //                 color="neutral"
+        //                 size="sm"
+        //             >
+        //                 <KeyboardArrowRightIcon />
+        //             </IconButton>
+        //         </Box>
         //     </Box>
-        // </Box>
-        <></>
+        // </>
+        <>hehe</>
     );
 }
