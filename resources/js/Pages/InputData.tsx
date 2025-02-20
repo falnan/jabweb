@@ -3,16 +3,32 @@ import CssBaseline from "@mui/joy/CssBaseline";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Breadcrumbs from "@mui/joy/Breadcrumbs";
-import Link from "@mui/joy/Link";
 import Typography from "@mui/joy/Typography";
 
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
+import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import AccessTimeFilledRoundedIcon from "@mui/icons-material/AccessTimeFilledRounded";
 
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import { FormControl, FormLabel, Input, Textarea } from "@mui/joy";
-import { router, usePage } from "@inertiajs/react";
+import {
+    AspectRatio,
+    Card,
+    CardActions,
+    CardOverflow,
+    Divider,
+    FormControl,
+    FormLabel,
+    IconButton,
+    Input,
+    Option,
+    Select,
+    Stack,
+    Textarea,
+} from "@mui/joy";
+import { Link, router, usePage } from "@inertiajs/react";
 import Swal from "sweetalert2";
 
 export default function InputData() {
@@ -50,19 +66,14 @@ export default function InputData() {
                             }
                             sx={{ pl: 0 }}
                         >
-                            <Link
-                                underline="none"
-                                color="neutral"
-                                href="#some-link"
-                                aria-label="Home"
-                            >
+                            <Link color="neutral" href="#" aria-label="Home">
                                 <HomeRoundedIcon />
                             </Link>
                             <Link
-                                underline="hover"
+                                href="#"
                                 color="neutral"
-                                // href="#some-link"
-                                sx={{ fontSize: 12, fontWeight: 500 }}
+
+                                // sx={{ fontSize: 12, fontWeight: 500 }}
                             >
                                 Dashboard
                             </Link>
@@ -90,7 +101,6 @@ export default function InputData() {
                         </Typography>
                     </Box>
                     <Box>
-                        {/* input data */}
                         <form
                             className="lg:w-96 mx-auto space-y-2"
                             onSubmit={(event) => {
@@ -106,51 +116,93 @@ export default function InputData() {
                                 router.post("/input-data", formJson);
                             }}
                         >
-                            <FormControl sx={{ flex: 1 }} size="sm">
-                                <FormLabel>Resi</FormLabel>
-                                <Input
-                                    name="resi"
-                                    size="sm"
-                                    placeholder="Resi"
-                                    required
-                                />
-                            </FormControl>
-
-                            <FormControl sx={{ flex: 1 }} size="sm">
-                                <FormLabel>Kurir</FormLabel>
-                                <Input
-                                    name="courier"
-                                    size="sm"
-                                    placeholder="Courier"
-                                    required
-                                />
-                            </FormControl>
-                            <FormControl sx={{ flex: 1 }} size="sm">
-                                <FormLabel>Penerima</FormLabel>
-                                <Input
-                                    name="customer"
-                                    size="sm"
-                                    placeholder="Customer"
-                                    required
-                                />
-                            </FormControl>
-                            <FormControl sx={{ flex: 1 }} size="sm">
-                                <FormLabel>Keterangan</FormLabel>
-                                {/* <Input size="sm" placeholder="Note" /> */}
-                                <Textarea
-                                    name="note"
-                                    minRows={2}
-                                    placeholder="Note"
-                                />
-                            </FormControl>
-                            <Button
-                                type="submit"
-                                color="success"
-                                size="sm"
-                                sx={{ marginTop: 2 }}
-                            >
-                                Submit
-                            </Button>
+                            <Card>
+                                <Box sx={{ mb: 1 }}>
+                                    <Typography level="title-md">
+                                        Personal info
+                                    </Typography>
+                                    <Typography level="body-sm">
+                                        Customize how your profile information
+                                        will apper to the networks.
+                                    </Typography>
+                                </Box>
+                                <Divider />
+                                <Stack
+                                    direction="column"
+                                    spacing={2}
+                                    sx={{
+                                        display: { xs: "flex" },
+                                        my: 1,
+                                    }}
+                                >
+                                    <Stack direction="row" spacing={2}>
+                                        <Stack spacing={1} sx={{ flexGrow: 1 }}>
+                                            <FormLabel>Resi</FormLabel>
+                                            <FormControl
+                                                sx={{
+                                                    display: {
+                                                        sm: "flex-column",
+                                                        md: "flex-row",
+                                                    },
+                                                    gap: 2,
+                                                }}
+                                            >
+                                                <Input
+                                                    name="resi"
+                                                    size="sm"
+                                                    placeholder="First name"
+                                                />
+                                            </FormControl>
+                                        </Stack>
+                                    </Stack>
+                                    <FormControl>
+                                        <FormLabel>Customer</FormLabel>
+                                        <Input name="customer" size="sm" />
+                                    </FormControl>
+                                    <FormControl sx={{ flexGrow: 1 }}>
+                                        <FormLabel>Courier</FormLabel>
+                                        <Input
+                                            name="courier"
+                                            size="sm"
+                                            sx={{ flexGrow: 1 }}
+                                        />
+                                    </FormControl>
+                                    <FormControl sx={{ flexGrow: 1 }}>
+                                        <FormLabel>Note</FormLabel>
+                                        <Input
+                                            name="note"
+                                            size="sm"
+                                            sx={{ flexGrow: 1 }}
+                                        />
+                                    </FormControl>
+                                </Stack>
+                                <CardOverflow
+                                    sx={{
+                                        borderTop: "1px solid",
+                                        borderColor: "divider",
+                                    }}
+                                >
+                                    <CardActions
+                                        sx={{ alignSelf: "flex-end", pt: 2 }}
+                                    >
+                                        <Button
+                                            size="sm"
+                                            variant="outlined"
+                                            color="neutral"
+                                            onClick={() => router.get("/")}
+                                        >
+                                            Cancel
+                                        </Button>
+                                        <Button
+                                            type="submit"
+                                            size="sm"
+                                            variant="solid"
+                                        >
+                                            Save
+                                        </Button>
+                                    </CardActions>
+                                </CardOverflow>
+                            </Card>
                         </form>
                     </Box>
                 </Box>

@@ -25,6 +25,7 @@ import BrowserUpdated from "@mui/icons-material/BrowserUpdated";
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import { closeSidebar } from "../utils";
 import { Link, usePage } from "@inertiajs/react";
+import { AccountCircle } from "@mui/icons-material";
 
 function Toggler({
     defaultExpanded = false,
@@ -118,9 +119,9 @@ export default function Sidebar() {
             />
             <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
                 <IconButton variant="soft" color="primary" size="sm">
-                    <BrightnessAutoRoundedIcon />
+                    <AccountCircle />
                 </IconButton>
-                <Typography level="title-lg">Acme Co.</Typography>
+                <Typography level="title-lg">JAB Zulistya</Typography>
                 <ColorSchemeToggle sx={{ ml: "auto" }} />
             </Box>
             <Input
@@ -187,7 +188,7 @@ export default function Sidebar() {
                         </ListItem>
                     </Link>
 
-                    {/* <ListItem nested>
+                    <ListItem nested>
                         <Toggler
                             renderToggle={({ open, setOpen }) => (
                                 <ListItemButton onClick={() => setOpen(!open)}>
@@ -213,28 +214,17 @@ export default function Sidebar() {
                             )}
                         >
                             <List sx={{ gap: 0.5 }}>
-                                <ListItem sx={{ mt: 0.5 }}>
-                                    <ListItemButton
-                                        role="menuitem"
-                                        component="a"
-                                        href="/joy-ui/getting-started/templates/profile-dashboard/"
-                                    >
-                                        My profile
-                                    </ListItemButton>
-                                </ListItem>
                                 <ListItem>
                                     <ListItemButton>
                                         Create a new user
                                     </ListItemButton>
                                 </ListItem>
                                 <ListItem>
-                                    <ListItemButton>
-                                        Roles & permission
-                                    </ListItemButton>
+                                    <ListItemButton>Users Data</ListItemButton>
                                 </ListItem>
                             </List>
                         </Toggler>
-                    </ListItem> */}
+                    </ListItem>
                 </List>
                 <List
                     size="sm"
@@ -301,12 +291,16 @@ export default function Sidebar() {
                     src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
                 />
                 <Box sx={{ minWidth: 0, flex: 1 }}>
-                    <Typography level="title-sm">Siriwat K.</Typography>
-                    <Typography level="body-xs">siriwatk@test.com</Typography>
+                    <Typography level="title-sm">Zulistia</Typography>
+                    <Typography level="body-xs">
+                        zulistiamukh@gmail.com
+                    </Typography>
                 </Box>
-                <IconButton size="sm" variant="plain" color="neutral">
-                    <LogoutRoundedIcon />
-                </IconButton>
+                <Link href="/logout" method="post">
+                    <IconButton size="sm" variant="plain" color="neutral">
+                        <LogoutRoundedIcon />
+                    </IconButton>
+                </Link>
             </Box>
         </Sheet>
     );

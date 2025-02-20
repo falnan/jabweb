@@ -8,19 +8,14 @@ import Typography from "@mui/joy/Typography";
 
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
-import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 
 import Sidebar from "../components/Sidebar";
-import OrderTable from "../components/OrderTable";
-import OrderList from "../components/OrderList";
 import Header from "../components/Header";
+import { FormControl, FormLabel, Input, Textarea } from "@mui/joy";
+import { router, usePage } from "@inertiajs/react";
+import Swal from "sweetalert2";
 
-export default function Data({
-    data,
-    searchValue,
-    startDateValue,
-    endDateValue,
-}: any) {
+export default function InputData() {
     return (
         <CssVarsProvider disableTransitionOnChange>
             <CssBaseline />
@@ -66,7 +61,7 @@ export default function Data({
                             <Link
                                 underline="hover"
                                 color="neutral"
-                                href="#some-link"
+                                // href="#some-link"
                                 sx={{ fontSize: 12, fontWeight: 500 }}
                             >
                                 Dashboard
@@ -75,7 +70,7 @@ export default function Data({
                                 color="primary"
                                 sx={{ fontWeight: 500, fontSize: 12 }}
                             >
-                                Data
+                                Input Data
                             </Typography>
                         </Breadcrumbs>
                     </Box>
@@ -91,22 +86,73 @@ export default function Data({
                         }}
                     >
                         <Typography level="h2" component="h1">
-                            Data
+                            Input Data
                         </Typography>
-                        <Button
-                            color="primary"
-                            startDecorator={<DownloadRoundedIcon />}
-                            size="sm"
-                        >
-                            Download Excel
-                        </Button>
                     </Box>
-                    <OrderTable
-                        data={data}
-                        searchValue={searchValue}
-                        startDateValue={startDateValue}
-                        endDateValue={endDateValue}
-                    />
+                    <Box>
+                        {/* input data */}
+                        <form
+                            className="lg:w-96 mx-auto space-y-2"
+                            onSubmit={(event) => {
+                                event.preventDefault();
+                                const formData = new FormData(
+                                    event.currentTarget
+                                );
+                                const formJson = Object.fromEntries(
+                                    (formData as any).entries()
+                                );
+                                const data: any = JSON.stringify(formJson);
+
+                                router.post("/input-data", formJson);
+                            }}
+                        >
+                            <FormControl sx={{ flex: 1 }} size="sm">
+                                <FormLabel>Resi</FormLabel>
+                                <Input
+                                    name="resi"
+                                    size="sm"
+                                    placeholder="Resi"
+                                    required
+                                />
+                            </FormControl>
+
+                            <FormControl sx={{ flex: 1 }} size="sm">
+                                <FormLabel>Kurir</FormLabel>
+                                <Input
+                                    name="courier"
+                                    size="sm"
+                                    placeholder="Courier"
+                                    required
+                                />
+                            </FormControl>
+                            <FormControl sx={{ flex: 1 }} size="sm">
+                                <FormLabel>Penerima</FormLabel>
+                                <Input
+                                    name="customer"
+                                    size="sm"
+                                    placeholder="Customer"
+                                    required
+                                />
+                            </FormControl>
+                            <FormControl sx={{ flex: 1 }} size="sm">
+                                <FormLabel>Keterangan</FormLabel>
+                                {/* <Input size="sm" placeholder="Note" /> */}
+                                <Textarea
+                                    name="note"
+                                    minRows={2}
+                                    placeholder="Note"
+                                />
+                            </FormControl>
+                            <Button
+                                type="submit"
+                                color="success"
+                                size="sm"
+                                sx={{ marginTop: 2 }}
+                            >
+                                Submit
+                            </Button>
+                        </form>
+                    </Box>
                 </Box>
             </Box>
         </CssVarsProvider>

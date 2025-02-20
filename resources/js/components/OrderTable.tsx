@@ -87,136 +87,42 @@ export default function OrderTable({
     startDateValue,
     endDateValue,
 }: any) {
-    const [open, setOpen] = React.useState(false);
-    const renderFilters = () => (
-        <React.Fragment>
-            {/* <FormControl size="sm">
-                <FormLabel>Status</FormLabel>
-                <Select
-                    size="sm"
-                    placeholder="Filter by status"
-                    slotProps={{ button: { sx: { whiteSpace: "nowrap" } } }}
-                >
-                    <Option value="paid">Paid</Option>
-                    <Option value="pending">Pending</Option>
-                    <Option value="refunded">Refunded</Option>
-                    <Option value="cancelled">Cancelled</Option>
-                </Select>
-            </FormControl> */}
-            <FormControl size="sm">
-                <form
-                    onChange={(event) => {
-                        event.preventDefault();
-                        const formData = new FormData(event.currentTarget);
-                        const formJson = Object.fromEntries(
-                            (formData as any).entries()
-                        );
-                        router.get("/", formJson);
-                    }}
-                >
-                    <FormLabel>From</FormLabel>
-                    <Input
-                        name="startDate"
-                        type="date"
-                        defaultValue={dayjs().format("YYYY-MM-DD")}
-                    />
-                </form>
-            </FormControl>
-            <FormControl size="sm">
-                <form
-                    onChange={(event) => {
-                        event.preventDefault();
-                        const formData = new FormData(event.currentTarget);
-                        const formJson = Object.fromEntries(
-                            (formData as any).entries()
-                        );
-                        router.get("/", formJson);
-                    }}
-                >
-                    <FormLabel>To</FormLabel>
-                    <Input
-                        name="endDate"
-                        type="date"
-                        defaultValue={dayjs().format("YYYY-MM-DD")}
-                    />
-                </form>
-            </FormControl>
-        </React.Fragment>
-    );
-
     return (
         <React.Fragment>
-            <Sheet
-                className="SearchAndFilters-mobile"
-                sx={{ display: { xs: "flex", sm: "none" }, my: 1, gap: 1 }}
-            >
-                <Input
-                    size="sm"
-                    placeholder="Search"
-                    startDecorator={<SearchIcon />}
-                    sx={{ flexGrow: 1 }}
-                />
-                <IconButton
-                    size="sm"
-                    variant="outlined"
-                    color="neutral"
-                    onClick={() => setOpen(true)}
-                >
-                    <FilterAltIcon />
-                </IconButton>
-                <Modal open={open} onClose={() => setOpen(false)}>
-                    <ModalDialog
-                        aria-labelledby="filter-modal"
-                        layout="fullscreen"
-                    >
-                        <ModalClose />
-                        <Typography id="filter-modal" level="h2">
-                            Filters
-                        </Typography>
-                        <Divider sx={{ my: 2 }} />
-                        <Sheet
-                            sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: 2,
-                            }}
-                        >
-                            {renderFilters()}
-                            <Button
-                                color="primary"
-                                onClick={() => setOpen(false)}
-                            >
-                                Submit
-                            </Button>
-                        </Sheet>
-                    </ModalDialog>
-                </Modal>
-            </Sheet>
-            <Box
-                className="SearchAndFilters-tabletUp"
-                sx={{
-                    borderRadius: "sm",
-                    py: 2,
-                    display: { xs: "none", sm: "flex" },
-                    flexWrap: "wrap",
-                    gap: 1.5,
-                    "& > *": {
-                        minWidth: { xs: "120px", md: "160px" },
-                    },
+            <form
+                onSubmit={(event) => {
+                    event.preventDefault();
+                    const formData = new FormData(event.currentTarget);
+                    const formJson = Object.fromEntries(
+                        (formData as any).entries()
+                    );
+                    router.get("/", formJson);
                 }}
             >
-                <FormControl sx={{ flex: 1 }} size="sm">
-                    <form
-                        onSubmit={(event) => {
-                            event.preventDefault();
-                            const formData = new FormData(event.currentTarget);
-                            const formJson = Object.fromEntries(
-                                (formData as any).entries()
-                            );
-                            router.get("/", formJson);
-                        }}
-                    >
-                        <FormLabel>Search for order</FormLabel>
+                <Box
+                    className="SearchAndFilters-tabletUp"
+                    sx={{
+                        borderRadius: "sm",
+                        py: 2,
+                        display: { sm: "flex" },
+                        flexWrap: "wrap",
+                        gap: 1.5,
+                        "& > *": {
+                            minWidth: { xs: "120px", md: "160px" },
+                        },
+                    }}
+                >
+                    <FormControl sx={{ flex: 1 }} size="sm">
+                        <FormLabel
+                            sx={{
+                                display: {
+                                    xs: "none",
+                                    sm: "flex",
+                                },
+                            }}
+                        >
+                            Search for order
+                        </FormLabel>
                         <Input
                             name="search"
                             defaultValue={searchValue}
@@ -224,10 +130,70 @@ export default function OrderTable({
                             placeholder="Search"
                             startDecorator={<SearchIcon />}
                         />
-                    </form>
-                </FormControl>
-                {renderFilters()}
-            </Box>
+                    </FormControl>
+                    <Box
+                        sx={{
+                            display: {
+                                xs: "flex",
+                            },
+                            gap: 1.5,
+                            marginTop: {
+                                xs: 2,
+                                sm: 0,
+                            },
+                        }}
+                    >
+                        <FormControl size="sm">
+                            <FormLabel
+                                sx={{
+                                    display: {
+                                        xs: "none",
+                                        sm: "flex",
+                                    },
+                                }}
+                            >
+                                From
+                            </FormLabel>
+                            <Input
+                                name="startDate"
+                                type="date"
+                                defaultValue={startDateValue}
+                            />
+                        </FormControl>
+                        <FormControl size="sm">
+                            <FormLabel
+                                sx={{
+                                    display: {
+                                        xs: "none",
+                                        sm: "flex",
+                                    },
+                                }}
+                            >
+                                To
+                            </FormLabel>
+                            <Input
+                                name="endDate"
+                                type="date"
+                                defaultValue={endDateValue}
+                            />
+                        </FormControl>
+                    </Box>
+                    <Button
+                        size="sm"
+                        type="submit"
+                        color="success"
+                        sx={{
+                            mt: {
+                                xs: 2,
+                                sm: 3,
+                            },
+                        }}
+                    >
+                        Cari
+                    </Button>
+                    {/* {renderFilters()} */}
+                </Box>
+            </form>
             <Sheet
                 className="OrderTableContainer"
                 variant="outlined"
@@ -368,9 +334,7 @@ export default function OrderTable({
                     pt: 2,
                     gap: 1,
                     [`& .${iconButtonClasses.root}`]: { borderRadius: "50%" },
-                    display: {
-                        md: "flex",
-                    },
+                    display: "flex",
                 }}
             >
                 <Link href={data.prev_page_url}>
@@ -386,7 +350,7 @@ export default function OrderTable({
 
                 <Box sx={{ flex: 1 }} />
                 <Typography>
-                    Menampilkan {data.per_page} dari {data.total} data{" "}
+                    Menampilkan {data.data.length} dari {data.total} data{" "}
                 </Typography>
                 <Box sx={{ flex: 1 }} />
                 <Link href={data.next_page_url}>

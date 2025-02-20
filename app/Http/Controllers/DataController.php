@@ -7,27 +7,37 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
+use function Laravel\Prompts\search;
+
 class DataController extends Controller
 {
     public function index(Request $request)
     {
 
         $paramSearch = $request->search ?? "";
-        $paramStartDate = $request->startDate ? Carbon::parse($request->startDate)->format("Y-m-H") : Carbon::now()->format("Y-m-H");
-        $paramEndDate = $request->endDate ? Carbon::parse($request->endDate)->format("Y-m-H") : Carbon::now()->format("Y-m-H");
+        $paramStartDate = $request->startDate ? Carbon::parse($request->startDate)->startOfDay() : Carbon::now()->startOfDay();
+        $paramEndDate = $request->endDate ? Carbon::parse($request->endDate)->endOfDay() : Carbon::now()->endOfDay();
+
+
 
         $data = Data::where(function ($query) use ($paramSearch) {
             $query->where('resi', 'like', '%' . $paramSearch . '%')
                 ->orWhere('customer', 'like', '%' . $paramSearch . '%');
         })
-            // ->whereBetween('created_at', [$paramStartDate, $paramEndDate])
+
+            ->whereBetween('created_at', [$paramStartDate, $paramEndDate])
+            ->orderBy('created_at', 'desc')
             ->paginate(10);
+
+
+        // dd(Carbon::make($paramEndDate)->format("Y-m-d"));
+
 
         return Inertia::render('Data')
             ->with('data', $data)
             ->with('searchValue', $paramSearch)
-            ->with('startDateValue', $paramStartDate)
-            ->with('endDateValue', $paramEndDate);
+            ->with('startDateValue', Carbon::make($paramStartDate)->format("Y-m-d"))
+            ->with('endDateValue', Carbon::make($paramEndDate)->format("Y-m-d"));
     }
 
     public function add()
@@ -80,5 +90,10 @@ class DataController extends Controller
     public function delete(String $id)
     {
         Data::find($id)->delete();
+    }
+
+    public function login()
+    {
+        return Inertia::render('Login');
     }
 }
