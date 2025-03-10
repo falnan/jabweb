@@ -168,7 +168,7 @@ export default function Sidebar() {
                                 <BrowserUpdated />
                                 <ListItemContent>
                                     <Typography level="title-sm">
-                                        Input Data
+                                        Tambahkan Data
                                     </Typography>
                                 </ListItemContent>
                             </ListItemButton>
@@ -195,7 +195,7 @@ export default function Sidebar() {
                                     <GroupRoundedIcon />
                                     <ListItemContent>
                                         <Typography level="title-sm">
-                                            Users
+                                            Admin
                                         </Typography>
                                     </ListItemContent>
                                     <KeyboardArrowDownIcon
@@ -216,11 +216,11 @@ export default function Sidebar() {
                             <List sx={{ gap: 0.5 }}>
                                 <ListItem>
                                     <ListItemButton>
-                                        Create a new user
+                                        Tambahkan Admin
                                     </ListItemButton>
                                 </ListItem>
                                 <ListItem>
-                                    <ListItemButton>Users Data</ListItemButton>
+                                    <ListItemButton>Data Admin</ListItemButton>
                                 </ListItem>
                             </List>
                         </Toggler>
@@ -239,13 +239,13 @@ export default function Sidebar() {
                     <ListItem>
                         <ListItemButton>
                             <SupportRoundedIcon />
-                            Support
+                            Bantuan
                         </ListItemButton>
                     </ListItem>
                     <ListItem>
                         <ListItemButton>
                             <SettingsRoundedIcon />
-                            Settings
+                            Pengaturan
                         </ListItemButton>
                     </ListItem>
                 </List>
@@ -285,11 +285,7 @@ export default function Sidebar() {
             </Box>
             <Divider />
             <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-                <Avatar
-                    variant="outlined"
-                    size="sm"
-                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
-                />
+                <Avatar variant="outlined" size="sm" src="" />
                 <Box sx={{ minWidth: 0, flex: 1 }}>
                     <Typography level="title-sm">Zulistia</Typography>
                     <Typography level="body-xs">

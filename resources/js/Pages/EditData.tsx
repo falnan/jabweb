@@ -3,7 +3,6 @@ import CssBaseline from "@mui/joy/CssBaseline";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Breadcrumbs from "@mui/joy/Breadcrumbs";
-import Link from "@mui/joy/Link";
 import Typography from "@mui/joy/Typography";
 
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
@@ -11,8 +10,19 @@ import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import { FormControl, FormLabel, Input, Textarea } from "@mui/joy";
-import { router } from "@inertiajs/react";
+import {
+    Card,
+    CardActions,
+    CardOverflow,
+    Divider,
+    FormControl,
+    FormLabel,
+    Input,
+    Stack,
+    Textarea,
+} from "@mui/joy";
+import { Link, router, usePage } from "@inertiajs/react";
+import Swal from "sweetalert2";
 
 export default function EditData({ data }: any) {
     return (
@@ -49,19 +59,14 @@ export default function EditData({ data }: any) {
                             }
                             sx={{ pl: 0 }}
                         >
-                            <Link
-                                underline="none"
-                                color="neutral"
-                                href="#some-link"
-                                aria-label="Home"
-                            >
+                            <Link color="neutral" href="#" aria-label="Home">
                                 <HomeRoundedIcon />
                             </Link>
                             <Link
-                                underline="hover"
+                                href="#"
                                 color="neutral"
-                                // href="#some-link"
-                                sx={{ fontSize: 12, fontWeight: 500 }}
+
+                                // sx={{ fontSize: 12, fontWeight: 500 }}
                             >
                                 Dashboard
                             </Link>
@@ -69,7 +74,7 @@ export default function EditData({ data }: any) {
                                 color="primary"
                                 sx={{ fontWeight: 500, fontSize: 12 }}
                             >
-                                Edit Data
+                                Tambahkan Data
                             </Typography>
                         </Breadcrumbs>
                     </Box>
@@ -85,11 +90,10 @@ export default function EditData({ data }: any) {
                         }}
                     >
                         <Typography level="h2" component="h1">
-                            Edit Data
+                            Tambahkan Data
                         </Typography>
                     </Box>
                     <Box>
-                        {/* input data */}
                         <form
                             className="lg:w-96 mx-auto space-y-2"
                             onSubmit={(event) => {
@@ -104,54 +108,102 @@ export default function EditData({ data }: any) {
                                 router.put("/edit-data/" + data.id, formJson);
                             }}
                         >
-                            <FormControl sx={{ flex: 1 }} size="sm">
-                                <FormLabel>Resi</FormLabel>
-                                <Input
-                                    defaultValue={data.resi}
-                                    name="resi"
-                                    size="sm"
-                                    placeholder="Resi"
-                                    required
-                                />
-                            </FormControl>
-
-                            <FormControl sx={{ flex: 1 }} size="sm">
-                                <FormLabel>Kurir</FormLabel>
-                                <Input
-                                    defaultValue={data.courier}
-                                    name="courier"
-                                    size="sm"
-                                    placeholder="Courier"
-                                    required
-                                />
-                            </FormControl>
-                            <FormControl sx={{ flex: 1 }} size="sm">
-                                <FormLabel>Penerima</FormLabel>
-                                <Input
-                                    defaultValue={data.customer}
-                                    name="customer"
-                                    size="sm"
-                                    placeholder="Customer"
-                                    required
-                                />
-                            </FormControl>
-                            <FormControl sx={{ flex: 1 }} size="sm">
-                                <FormLabel>Keterangan</FormLabel>
-                                <Textarea
-                                    defaultValue={data.note}
-                                    name="note"
-                                    minRows={2}
-                                    placeholder="Note"
-                                />
-                            </FormControl>
-                            <Button
-                                type="submit"
-                                color="success"
-                                size="sm"
-                                sx={{ marginTop: 2 }}
-                            >
-                                Submit
-                            </Button>
+                            <Card>
+                                <Box sx={{ mb: 1 }}>
+                                    <Typography level="title-md">
+                                        Periksa Kembali!
+                                    </Typography>
+                                    <Typography level="body-sm">
+                                        Pastikan data yang Anda masukkan benar.
+                                    </Typography>
+                                </Box>
+                                <Divider />
+                                <Stack
+                                    direction="column"
+                                    spacing={2}
+                                    sx={{
+                                        display: { xs: "flex" },
+                                        my: 1,
+                                    }}
+                                >
+                                    <Stack direction="row" spacing={2}>
+                                        <Stack spacing={1} sx={{ flexGrow: 1 }}>
+                                            <FormLabel>Resi</FormLabel>
+                                            <FormControl
+                                                sx={{
+                                                    display: {
+                                                        sm: "flex-column",
+                                                        md: "flex-row",
+                                                    },
+                                                    gap: 2,
+                                                }}
+                                            >
+                                                <Input
+                                                    defaultValue={data.resi}
+                                                    name="resi"
+                                                    size="sm"
+                                                    placeholder=""
+                                                    required
+                                                />
+                                            </FormControl>
+                                        </Stack>
+                                    </Stack>
+                                    <FormControl>
+                                        <FormLabel>Pelanggan</FormLabel>
+                                        <Input
+                                            defaultValue={data.customer}
+                                            name="customer"
+                                            size="sm"
+                                            required
+                                        />
+                                    </FormControl>
+                                    <FormControl sx={{ flexGrow: 1 }}>
+                                        <FormLabel>Kurir</FormLabel>
+                                        <Input
+                                            defaultValue={data.courier}
+                                            name="courier"
+                                            size="sm"
+                                            sx={{ flexGrow: 1 }}
+                                            required
+                                        />
+                                    </FormControl>
+                                    <FormControl sx={{ flexGrow: 1 }}>
+                                        <FormLabel>Keterangan</FormLabel>
+                                        <Input
+                                            defaultValue={data.note}
+                                            name="note"
+                                            size="sm"
+                                            sx={{ flexGrow: 1 }}
+                                        />
+                                    </FormControl>
+                                </Stack>
+                                <CardOverflow
+                                    sx={{
+                                        borderTop: "1px solid",
+                                        borderColor: "divider",
+                                    }}
+                                >
+                                    <CardActions
+                                        sx={{ alignSelf: "flex-end", pt: 2 }}
+                                    >
+                                        <Button
+                                            size="sm"
+                                            variant="outlined"
+                                            color="neutral"
+                                            onClick={() => router.get("/")}
+                                        >
+                                            Kembali
+                                        </Button>
+                                        <Button
+                                            type="submit"
+                                            size="sm"
+                                            variant="solid"
+                                        >
+                                            Simpan
+                                        </Button>
+                                    </CardActions>
+                                </CardOverflow>
+                            </Card>
                         </form>
                     </Box>
                 </Box>

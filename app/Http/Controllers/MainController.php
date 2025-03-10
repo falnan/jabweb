@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DataExport;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MainController extends Controller
 {
@@ -23,7 +26,7 @@ class MainController extends Controller
 
 
         if (Auth::attempt($credentials)) {
-            // dd('berhasil');
+
             $request->session()->regenerate();
             return Inertia::render('InputData');
         }
@@ -38,6 +41,20 @@ class MainController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return Inertia::render('/Login');
+        return redirect('/login');
+    }
+
+    public function export(Request $request)
+    {
+        $startDate = $request->query('startDate');
+        $endDate = $request->query('endDate');
+
+
+        $request->validate([
+            'startDate' => 'required|date',
+            'endDate' => 'required|date',
+        ]);
+
+        return Excel::download(new DataExport($startDate, $endDate), 'tes.xlsx');
     }
 }

@@ -102,7 +102,7 @@ export default function JoySignInSideTemplate() {
                             justifyContent: "space-between",
                         }}
                     >
-                        <Box
+                        {/* <Box
                             sx={{
                                 gap: 2,
                                 display: "flex",
@@ -119,7 +119,7 @@ export default function JoySignInSideTemplate() {
                             <Typography level="title-lg">
                                 Company logo
                             </Typography>
-                        </Box>
+                        </Box> */}
                         <ColorSchemeToggle />
                     </Box>
                     <Box
@@ -145,39 +145,6 @@ export default function JoySignInSideTemplate() {
                             },
                         }}
                     >
-                        <Stack sx={{ gap: 4, mb: 2 }}>
-                            <Stack sx={{ gap: 1 }}>
-                                <Typography component="h1" level="h3">
-                                    Sign in
-                                </Typography>
-                                <Typography level="body-sm">
-                                    New to company?{" "}
-                                    <Link
-                                        href="#replace-with-a-link"
-                                        level="title-sm"
-                                    >
-                                        Sign up!
-                                    </Link>
-                                </Typography>
-                            </Stack>
-                            <Button
-                                variant="soft"
-                                color="neutral"
-                                fullWidth
-                                // startDecorator={<GoogleIcon />}
-                            >
-                                Continue with Google
-                            </Button>
-                        </Stack>
-                        <Divider
-                            sx={(theme) => ({
-                                [theme.getColorSchemeSelector("light")]: {
-                                    color: { xs: "#FFF", md: "text.tertiary" },
-                                },
-                            })}
-                        >
-                            or
-                        </Divider>
                         <Stack sx={{ gap: 4, mt: 2 }}>
                             <form
                                 onSubmit={(event) => {
@@ -197,7 +164,7 @@ export default function JoySignInSideTemplate() {
                                     <Input type="email" name="email" />
                                 </FormControl>
                                 <FormControl required>
-                                    <FormLabel>Password</FormLabel>
+                                    <FormLabel>Kata Sandi</FormLabel>
                                     <Input type="password" name="password" />
                                 </FormControl>
                                 <Stack sx={{ gap: 4, mt: 2 }}>
@@ -213,15 +180,12 @@ export default function JoySignInSideTemplate() {
                                             label="Remember me"
                                             name="persistent"
                                         />
-                                        <Link
-                                            level="title-sm"
-                                            href="#replace-with-a-link"
-                                        >
-                                            Forgot your password?
+                                        <Link level="title-sm" href="#">
+                                            Lupa Kata Sandi?
                                         </Link>
                                     </Box>
                                     <Button type="submit" fullWidth>
-                                        Sign in
+                                        Masuk
                                     </Button>
                                 </Stack>
                             </form>
@@ -232,7 +196,7 @@ export default function JoySignInSideTemplate() {
                             level="body-xs"
                             sx={{ textAlign: "center" }}
                         >
-                            © Your company {new Date().getFullYear()}
+                            © Zulistya {new Date().getFullYear()}
                         </Typography>
                     </Box>
                 </Box>
@@ -252,11 +216,9 @@ export default function JoySignInSideTemplate() {
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
-                    backgroundImage:
-                        "url(https://images.unsplash.com/photo-1527181152855-fc03fc7949c8?auto=format&w=1000&dpr=2)",
+                    backgroundImage: "url(images/jab.jpg)",
                     [theme.getColorSchemeSelector("dark")]: {
-                        backgroundImage:
-                            "url(https://images.unsplash.com/photo-1572072393749-3ca9c8ea0831?auto=format&w=1000&dpr=2)",
+                        backgroundImage: "url(images/jab.jpg)",
                     },
                 })}
             />

@@ -68,14 +68,11 @@ function RowMenu({ id }: any) {
             </MenuButton>
             <Menu size="sm" sx={{ minWidth: 140 }}>
                 <Link href={`/edit-data/${id}`}>
-                    <MenuItem>Edit</MenuItem>
-                </Link>
-                <Link href={`/edit-data/${id}`}>
-                    <MenuItem>Rename</MenuItem>
+                    <MenuItem>Ubah</MenuItem>
                 </Link>
                 <Divider />
                 <Link href={`/delete-data/${id}`} method="delete">
-                    <MenuItem color="danger">Delete</MenuItem>
+                    <MenuItem color="danger">Hapus</MenuItem>
                 </Link>
             </Menu>
         </Dropdown>
@@ -121,13 +118,13 @@ export default function OrderTable({
                                 },
                             }}
                         >
-                            Search for order
+                            Cari Resi atau Pelanggan
                         </FormLabel>
                         <Input
                             name="search"
                             defaultValue={searchValue}
                             size="sm"
-                            placeholder="Search"
+                            placeholder="Cari"
                             startDecorator={<SearchIcon />}
                         />
                     </FormControl>
@@ -152,7 +149,7 @@ export default function OrderTable({
                                     },
                                 }}
                             >
-                                From
+                                Dari
                             </FormLabel>
                             <Input
                                 name="startDate"
@@ -169,7 +166,7 @@ export default function OrderTable({
                                     },
                                 }}
                             >
-                                To
+                                Ke
                             </FormLabel>
                             <Input
                                 name="endDate"
@@ -226,7 +223,7 @@ export default function OrderTable({
                                 No
                             </th>
                             <th style={{ width: 140, padding: "12px 6px" }}>
-                                Timestampt
+                                Waktu dan Tanggal
                             </th>
                             <th style={{ width: 140, padding: "12px 6px" }}>
                                 Resi
@@ -235,7 +232,7 @@ export default function OrderTable({
                                 Kurir
                             </th>
                             <th style={{ width: 140, padding: "12px 6px" }}>
-                                Penerima
+                                Pelanggan
                             </th>
                             <th style={{ width: 140, padding: "12px 6px" }}>
                                 Keterangan
@@ -318,7 +315,7 @@ export default function OrderTable({
                                             href={`/edit-data/${row.id}`}
                                             className="text-blue-600"
                                         >
-                                            Edit
+                                            Ubah
                                         </Link>
                                         <RowMenu id={row.id} />
                                     </Box>
@@ -350,7 +347,7 @@ export default function OrderTable({
 
                 <Box sx={{ flex: 1 }} />
                 <Typography>
-                    Menampilkan {data.data.length} dari {data.total} data{" "}
+                    {data.data.length} dari {data.total} data{" "}
                 </Typography>
                 <Box sx={{ flex: 1 }} />
                 <Link href={data.next_page_url}>

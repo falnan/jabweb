@@ -7,24 +7,17 @@ import Typography from "@mui/joy/Typography";
 
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
-import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import AccessTimeFilledRoundedIcon from "@mui/icons-material/AccessTimeFilledRounded";
 
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import {
-    AspectRatio,
     Card,
     CardActions,
     CardOverflow,
     Divider,
     FormControl,
     FormLabel,
-    IconButton,
     Input,
-    Option,
-    Select,
     Stack,
     Textarea,
 } from "@mui/joy";
@@ -81,7 +74,7 @@ export default function InputData() {
                                 color="primary"
                                 sx={{ fontWeight: 500, fontSize: 12 }}
                             >
-                                Input Data
+                                Tambahkan Data
                             </Typography>
                         </Breadcrumbs>
                     </Box>
@@ -97,7 +90,7 @@ export default function InputData() {
                         }}
                     >
                         <Typography level="h2" component="h1">
-                            Input Data
+                            Tambahkan Data
                         </Typography>
                     </Box>
                     <Box>
@@ -119,11 +112,10 @@ export default function InputData() {
                             <Card>
                                 <Box sx={{ mb: 1 }}>
                                     <Typography level="title-md">
-                                        Personal info
+                                        Periksa Kembali!
                                     </Typography>
                                     <Typography level="body-sm">
-                                        Customize how your profile information
-                                        will apper to the networks.
+                                        Pastikan data yang Anda masukkan benar.
                                     </Typography>
                                 </Box>
                                 <Divider />
@@ -150,17 +142,17 @@ export default function InputData() {
                                                 <Input
                                                     name="resi"
                                                     size="sm"
-                                                    placeholder="First name"
+                                                    placeholder=""
                                                 />
                                             </FormControl>
                                         </Stack>
                                     </Stack>
                                     <FormControl>
-                                        <FormLabel>Customer</FormLabel>
+                                        <FormLabel>Pelanggan</FormLabel>
                                         <Input name="customer" size="sm" />
                                     </FormControl>
                                     <FormControl sx={{ flexGrow: 1 }}>
-                                        <FormLabel>Courier</FormLabel>
+                                        <FormLabel>Kurir</FormLabel>
                                         <Input
                                             name="courier"
                                             size="sm"
@@ -168,7 +160,7 @@ export default function InputData() {
                                         />
                                     </FormControl>
                                     <FormControl sx={{ flexGrow: 1 }}>
-                                        <FormLabel>Note</FormLabel>
+                                        <FormLabel>Keterangan</FormLabel>
                                         <Input
                                             name="note"
                                             size="sm"
@@ -191,14 +183,14 @@ export default function InputData() {
                                             color="neutral"
                                             onClick={() => router.get("/")}
                                         >
-                                            Cancel
+                                            Kembali
                                         </Button>
                                         <Button
                                             type="submit"
                                             size="sm"
                                             variant="solid"
                                         >
-                                            Save
+                                            Simpan
                                         </Button>
                                     </CardActions>
                                 </CardOverflow>

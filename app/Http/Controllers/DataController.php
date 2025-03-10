@@ -60,6 +60,8 @@ class DataController extends Controller
             'customer' => $request->customer,
             'note' => $request->note,
         ]);
+
+        return redirect('/');
     }
 
     public function edit(String $id)
@@ -90,6 +92,15 @@ class DataController extends Controller
     public function delete(String $id)
     {
         Data::find($id)->delete();
+    }
+
+
+    public function deleteBetween(Request $request)
+    {
+        $startDate = $request->query('startDate');
+        $endDate = $request->query('endDate');
+
+        Data::whereBetween('created_at', [$startDate, $endDate])->delete();
     }
 
     public function login()

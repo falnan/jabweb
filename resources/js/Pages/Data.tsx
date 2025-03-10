@@ -12,7 +12,6 @@ import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 
 import Sidebar from "../components/Sidebar";
 import OrderTable from "../components/OrderTable";
-import OrderList from "../components/OrderList";
 import Header from "../components/Header";
 
 export default function Data({
@@ -93,13 +92,30 @@ export default function Data({
                         <Typography level="h2" component="h1">
                             Data
                         </Typography>
-                        <Button
-                            color="primary"
-                            startDecorator={<DownloadRoundedIcon />}
-                            size="sm"
-                        >
-                            Download Excel
-                        </Button>
+                        <div className="flex gap-3">
+                            <Link
+                                href={`/export?startDate=${startDateValue}&endDate=${endDateValue}`}
+                            >
+                                <Button
+                                    color="danger"
+                                    startDecorator={<DownloadRoundedIcon />}
+                                    size="sm"
+                                >
+                                    Hapus Data
+                                </Button>
+                            </Link>
+                            <Link
+                                href={`/export?startDate=${startDateValue}&endDate=${endDateValue}`}
+                            >
+                                <Button
+                                    color="primary"
+                                    startDecorator={<DownloadRoundedIcon />}
+                                    size="sm"
+                                >
+                                    Unduh Excel
+                                </Button>
+                            </Link>
+                        </div>
                     </Box>
                     <OrderTable
                         data={data}
