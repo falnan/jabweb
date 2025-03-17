@@ -15,17 +15,8 @@ import Typography from "@mui/joy/Typography";
 import Stack from "@mui/joy/Stack";
 import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
-import BadgeRoundedIcon from "@mui/icons-material/BadgeRounded";
-import { router } from "@inertiajs/react";
-
-interface FormElements extends HTMLFormControlsCollection {
-    email: HTMLInputElement;
-    password: HTMLInputElement;
-    persistent: HTMLInputElement;
-}
-interface SignInFormElement extends HTMLFormElement {
-    readonly elements: FormElements;
-}
+import { router, useForm } from "@inertiajs/react";
+import { Snackbar } from "@mui/joy";
 
 function ColorSchemeToggle(props: IconButtonProps) {
     const { onClick, ...other } = props;
@@ -55,9 +46,28 @@ function ColorSchemeToggle(props: IconButtonProps) {
     );
 }
 
-// const customTheme = extendTheme({ defaultColorScheme: "dark" });
-
 export default function JoySignInSideTemplate() {
+    const [snackbar, setSnackbar] = React.useState(false);
+    const { data, setData, post, errors }: any = useForm({
+        email: "",
+        password: "",
+    });
+    function handleSubmit(e: any) {
+        e.preventDefault();
+        post("/login");
+    }
+
+    function handleChange(e: any) {
+        setData((val: any) => ({ ...val, [e.target.name]: e.target.value }));
+    }
+
+    React.useEffect(() => {
+        if (errors !== "") {
+            setSnackbar(true);
+        }
+    }, [errors]);
+
+    console.log({ status: snackbar, inierror: errors?.cobalagi });
     return (
         <CssVarsProvider disableTransitionOnChange>
             <CssBaseline />
@@ -69,6 +79,20 @@ export default function JoySignInSideTemplate() {
                     },
                 }}
             />
+            <Snackbar
+                color="danger"
+                autoHideDuration={4000}
+                open={snackbar}
+                onClose={(event, reason) => {
+                    if (reason === "clickaway") {
+                        return;
+                    }
+                    setSnackbar(false);
+                }}
+            >
+                Kredensial tidak ditemukan.
+            </Snackbar>
+
             <Box
                 sx={(theme) => ({
                     width: { xs: "100%", md: "50vw" },
@@ -102,24 +126,6 @@ export default function JoySignInSideTemplate() {
                             justifyContent: "space-between",
                         }}
                     >
-                        {/* <Box
-                            sx={{
-                                gap: 2,
-                                display: "flex",
-                                alignItems: "center",
-                            }}
-                        >
-                            <IconButton
-                                variant="soft"
-                                color="primary"
-                                size="sm"
-                            >
-                                <BadgeRoundedIcon />
-                            </IconButton>
-                            <Typography level="title-lg">
-                                Company logo
-                            </Typography>
-                        </Box> */}
                         <ColorSchemeToggle />
                     </Box>
                     <Box
@@ -146,26 +152,28 @@ export default function JoySignInSideTemplate() {
                         }}
                     >
                         <Stack sx={{ gap: 4, mt: 2 }}>
-                            <form
-                                onSubmit={(event) => {
-                                    event.preventDefault();
-                                    const formData = new FormData(
-                                        event.currentTarget
-                                    );
-                                    const formJson = Object.fromEntries(
-                                        (formData as any).entries()
-                                    );
-
-                                    router.post("/login", formJson);
-                                }}
-                            >
+                            <form onSubmit={handleSubmit}>
                                 <FormControl required>
                                     <FormLabel>Email</FormLabel>
-                                    <Input type="email" name="email" />
+                                    <Input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        value={data.email}
+                                        error={errors.email}
+                                        onChange={handleChange}
+                                    />
                                 </FormControl>
-                                <FormControl required>
+                                <FormControl>
                                     <FormLabel>Kata Sandi</FormLabel>
-                                    <Input type="password" name="password" />
+                                    <Input
+                                        type="password"
+                                        id="password"
+                                        name="password"
+                                        value={data.password}
+                                        error={errors.password}
+                                        onChange={handleChange}
+                                    />
                                 </FormControl>
                                 <Stack sx={{ gap: 4, mt: 2 }}>
                                     <Box

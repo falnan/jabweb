@@ -7,8 +7,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-use function Laravel\Prompts\search;
-
 class DataController extends Controller
 {
     public function index(Request $request)
@@ -27,10 +25,7 @@ class DataController extends Controller
 
             ->whereBetween('created_at', [$paramStartDate, $paramEndDate])
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
-
-
-        // dd(Carbon::make($paramEndDate)->format("Y-m-d"));
+            ->paginate(3);
 
 
         return Inertia::render('Data')
@@ -94,13 +89,18 @@ class DataController extends Controller
         Data::find($id)->delete();
     }
 
-
     public function deleteBetween(Request $request)
     {
         $startDate = $request->query('startDate');
         $endDate = $request->query('endDate');
 
+        $request->validate([
+            'startDate' => 'required|date',
+            'endDate' => 'required|date',
+        ]);
+
         Data::whereBetween('created_at', [$startDate, $endDate])->delete();
+        return redirect('/');
     }
 
     public function login()

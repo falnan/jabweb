@@ -13,6 +13,8 @@ import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import Sidebar from "../components/Sidebar";
 import OrderTable from "../components/OrderTable";
 import Header from "../components/Header";
+import Swal from "sweetalert2";
+import { router } from "@inertiajs/react";
 
 export default function Data({
     data,
@@ -20,6 +22,24 @@ export default function Data({
     startDateValue,
     endDateValue,
 }: any) {
+    function handleDeleteBetween() {
+        Swal.fire({
+            title: "Periksa kembali!",
+            text: `Anda akan menghapus data tanggal ${startDateValue} hingga ${endDateValue}`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Ya, Hapuskan!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(
+                    `deletebetween/?startDate=${startDateValue}&endDate=${endDateValue}`
+                );
+            }
+        });
+    }
+
     return (
         <CssVarsProvider disableTransitionOnChange>
             <CssBaseline />
@@ -93,17 +113,14 @@ export default function Data({
                             Data
                         </Typography>
                         <div className="flex gap-3">
-                            <Link
-                                href={`/export?startDate=${startDateValue}&endDate=${endDateValue}`}
+                            <Button
+                                color="danger"
+                                startDecorator={<DownloadRoundedIcon />}
+                                size="sm"
+                                onClick={handleDeleteBetween}
                             >
-                                <Button
-                                    color="danger"
-                                    startDecorator={<DownloadRoundedIcon />}
-                                    size="sm"
-                                >
-                                    Hapus Data
-                                </Button>
-                            </Link>
+                                Hapus Data
+                            </Button>
                             <Link
                                 href={`/export?startDate=${startDateValue}&endDate=${endDateValue}`}
                             >

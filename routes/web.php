@@ -5,10 +5,6 @@ use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/belajar', function () {
-    return Inertia::render('Belajar');
-});
-
 Route::get('/login', [MainController::class, 'login'])->name('login');
 Route::post('/login', [MainController::class, 'auth']);
 Route::post('/logout', [MainController::class, 'logout']);
@@ -21,6 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/edit-data/{id}', [DataController::class, 'edit']);
     Route::put('/edit-data/{id}', [DataController::class, 'update']);
     Route::delete('/delete-data/{id}', [DataController::class, 'delete']);
+    Route::delete('/deletebetween', [DataController::class, 'deleteBetween']);
 
     Route::get('/export', [MainController::class, 'export']);
 });

@@ -32,8 +32,8 @@ class MainController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+            'cobalagi' => 'The provided credentials do not match our records.',
+        ]);
     }
 
     public function logout(Request $request)
@@ -49,6 +49,7 @@ class MainController extends Controller
         $startDate = $request->query('startDate');
         $endDate = $request->query('endDate');
 
+        dd($startDate);
 
         $request->validate([
             'startDate' => 'required|date',

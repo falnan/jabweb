@@ -30,6 +30,7 @@
         "@mui/icons-material": "^6.4.2",
         "@mui/joy": "^5.0.0-beta.51",
         "dayjs": "^1.11.13",
+        "react-qr-barcode-scanner": "^2.0.0",
         "sweetalert2": "^11.17.2"
     }
 }

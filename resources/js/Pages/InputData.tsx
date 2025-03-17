@@ -21,10 +21,29 @@ import {
     Stack,
     Textarea,
 } from "@mui/joy";
-import { Link, router, usePage } from "@inertiajs/react";
-import Swal from "sweetalert2";
+import { Link, router, useForm, usePage } from "@inertiajs/react";
+import { useState } from "react";
+import BarcodeScanner from "./BarcodeScanner";
 
 export default function InputData() {
+    const [scanner, setScanner] = useState(false);
+
+    const { data, setData, post, errors }: any = useForm({
+        resi: "",
+        customer: "",
+        courier: "",
+        note: "",
+    });
+
+    function handleSubmit(e: any) {
+        e.preventDefault();
+        post("/input-data");
+    }
+
+    function handleChange(e: any) {
+        setData((val: any) => ({ ...val, [e.target.name]: e.target.value }));
+    }
+
     return (
         <CssVarsProvider disableTransitionOnChange>
             <CssBaseline />
@@ -96,18 +115,7 @@ export default function InputData() {
                     <Box>
                         <form
                             className="lg:w-96 mx-auto space-y-2"
-                            onSubmit={(event) => {
-                                event.preventDefault();
-                                const formData = new FormData(
-                                    event.currentTarget
-                                );
-                                const formJson = Object.fromEntries(
-                                    (formData as any).entries()
-                                );
-                                const data: any = JSON.stringify(formJson);
-
-                                router.post("/input-data", formJson);
-                            }}
+                            onSubmit={handleSubmit}
                         >
                             <Card>
                                 <Box sx={{ mb: 1 }}>
@@ -139,32 +147,80 @@ export default function InputData() {
                                                     gap: 2,
                                                 }}
                                             >
-                                                <Input
-                                                    name="resi"
-                                                    size="sm"
-                                                    placeholder=""
-                                                />
+                                                <div className="flex gap-2">
+                                                    <Input
+                                                        id="customer"
+                                                        name="resi"
+                                                        size="sm"
+                                                        value={data.resi}
+                                                        onChange={handleChange}
+                                                        error={errors.resi}
+                                                        className="w-full"
+                                                    />
+
+                                                    {scanner == false ? (
+                                                        <Button
+                                                            onClick={() =>
+                                                                setScanner(true)
+                                                            }
+                                                            color="neutral"
+                                                        >
+                                                            Scan
+                                                        </Button>
+                                                    ) : (
+                                                        <Button
+                                                            onClick={() =>
+                                                                setScanner(
+                                                                    false
+                                                                )
+                                                            }
+                                                            color="danger"
+                                                        >
+                                                            Stop
+                                                        </Button>
+                                                    )}
+                                                </div>
                                             </FormControl>
+                                            {scanner && (
+                                                <div className="self-center">
+                                                    <BarcodeScanner
+                                                        setValue={setData}
+                                                    />
+                                                </div>
+                                            )}
                                         </Stack>
                                     </Stack>
                                     <FormControl>
                                         <FormLabel>Pelanggan</FormLabel>
-                                        <Input name="customer" size="sm" />
+                                        <Input
+                                            id="customer"
+                                            name="customer"
+                                            size="sm"
+                                            value={data.customer}
+                                            onChange={handleChange}
+                                            error={errors.customer}
+                                        />
                                     </FormControl>
                                     <FormControl sx={{ flexGrow: 1 }}>
                                         <FormLabel>Kurir</FormLabel>
                                         <Input
+                                            id="courier"
                                             name="courier"
                                             size="sm"
-                                            sx={{ flexGrow: 1 }}
+                                            value={data.courier}
+                                            onChange={handleChange}
+                                            error={errors.courier}
                                         />
                                     </FormControl>
                                     <FormControl sx={{ flexGrow: 1 }}>
                                         <FormLabel>Keterangan</FormLabel>
                                         <Input
+                                            id="note"
                                             name="note"
                                             size="sm"
-                                            sx={{ flexGrow: 1 }}
+                                            value={data.note}
+                                            onChange={handleChange}
+                                            error={errors.note}
                                         />
                                     </FormControl>
                                 </Stack>

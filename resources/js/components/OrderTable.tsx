@@ -1,16 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from "react";
-import { ColorPaletteProp, ThemeProvider } from "@mui/joy/styles";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
-import Chip from "@mui/joy/Chip";
 import Divider from "@mui/joy/Divider";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
-import Modal from "@mui/joy/Modal";
-import ModalDialog from "@mui/joy/ModalDialog";
-import ModalClose from "@mui/joy/ModalClose";
 import Table from "@mui/joy/Table";
 import Sheet from "@mui/joy/Sheet";
 import IconButton, { iconButtonClasses } from "@mui/joy/IconButton";
@@ -19,43 +14,31 @@ import Menu from "@mui/joy/Menu";
 import MenuButton from "@mui/joy/MenuButton";
 import MenuItem from "@mui/joy/MenuItem";
 import Dropdown from "@mui/joy/Dropdown";
-
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import SearchIcon from "@mui/icons-material/Search";
-import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
-import BlockIcon from "@mui/icons-material/Block";
-import AutorenewRoundedIcon from "@mui/icons-material/AutorenewRounded";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import dayjs from "dayjs";
 import { Link, router } from "@inertiajs/react";
+import Swal from "sweetalert2";
 
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-    if (b[orderBy] < a[orderBy]) {
-        return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-        return 1;
-    }
-    return 0;
+function handleDelete(id: any, resi: any) {
+    Swal.fire({
+        title: "Periksa kembali",
+        text: `Anda akan menghapus data dengan resi ${resi}`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Ya, Hapuskan!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            router.delete(`delete-data/${id}`);
+        }
+    });
 }
 
-type Order = "asc" | "desc";
-
-function getComparator<Key extends keyof any>(
-    order: Order,
-    orderBy: Key
-): (
-    a: { [key in Key]: number | string },
-    b: { [key in Key]: number | string }
-) => number {
-    return order === "desc"
-        ? (a, b) => descendingComparator(a, b, orderBy)
-        : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-function RowMenu({ id }: any) {
+function RowMenu({ id, resi }: any) {
     return (
         <Dropdown>
             <MenuButton
@@ -71,9 +54,9 @@ function RowMenu({ id }: any) {
                     <MenuItem>Ubah</MenuItem>
                 </Link>
                 <Divider />
-                <Link href={`/delete-data/${id}`} method="delete">
-                    <MenuItem color="danger">Hapus</MenuItem>
-                </Link>
+                <MenuItem onClick={() => handleDelete(id, resi)} color="danger">
+                    Hapus
+                </MenuItem>
             </Menu>
         </Dropdown>
     );
@@ -317,7 +300,7 @@ export default function OrderTable({
                                         >
                                             Ubah
                                         </Link>
-                                        <RowMenu id={row.id} />
+                                        <RowMenu id={row.id} resi={row.resi} />
                                     </Box>
                                 </td>
                             </tr>
@@ -334,32 +317,58 @@ export default function OrderTable({
                     display: "flex",
                 }}
             >
-                <Link href={data.prev_page_url}>
+                {data.prev_page_url == null ? (
                     <Button
                         size="sm"
-                        variant="outlined"
+                        variant="soft"
                         color="neutral"
                         startDecorator={<KeyboardArrowLeftIcon />}
                     >
                         Previous
                     </Button>
-                </Link>
+                ) : (
+                    <Link
+                        href={`${data.prev_page_url} & startDate=${startDateValue}&endDate=${endDateValue}`}
+                    >
+                        <Button
+                            size="sm"
+                            variant="outlined"
+                            color="neutral"
+                            startDecorator={<KeyboardArrowLeftIcon />}
+                        >
+                            Previous
+                        </Button>
+                    </Link>
+                )}
 
                 <Box sx={{ flex: 1 }} />
                 <Typography>
                     {data.data.length} dari {data.total} data{" "}
                 </Typography>
                 <Box sx={{ flex: 1 }} />
-                <Link href={data.next_page_url}>
+                {data.next_page_url == null ? (
                     <Button
                         size="sm"
-                        variant="outlined"
+                        variant="soft"
                         color="neutral"
                         endDecorator={<KeyboardArrowRightIcon />}
                     >
                         Next
                     </Button>
-                </Link>
+                ) : (
+                    <Link
+                        href={`${data.next_page_url}&startDate=${startDateValue}&endDate=${endDateValue}`}
+                    >
+                        <Button
+                            size="sm"
+                            variant="outlined"
+                            color="neutral"
+                            endDecorator={<KeyboardArrowRightIcon />}
+                        >
+                            Next
+                        </Button>
+                    </Link>
+                )}
             </Box>
         </React.Fragment>
     );

@@ -15,52 +15,101 @@ class DataSeeder extends Seeder
     {
         Data::insert([
             'resi' => '123xxx',
+            'customer' => 'a',
+            'courier' => 'jnt',
+            'note' => '',
+            'created_at' => Carbon::parse('2025-03-10')
+        ]);
+        Data::insert([
+            'resi' => '123xxx',
             'customer' => 'aa',
             'courier' => 'jnt',
             'note' => '',
-            'created_at' => Carbon::parse('2025-02-15')
+            'created_at' => Carbon::parse('2025-03-11')
         ]);
         Data::insert([
-            'resi' => '321xxx',
-            'customer' => 'ab',
+            'resi' => '123xxx',
+            'customer' => 'aaa',
             'courier' => 'jnt',
-            'note' => 'hehe',
-            'created_at' => Carbon::parse('2025-02-16')
+            'note' => '',
+            'created_at' => Carbon::parse('2025-03-12')
         ]);
         Data::insert([
-            'resi' => '321xxx',
+            'resi' => '123xxx',
+            'customer' => 'b',
+            'courier' => 'jnt',
+            'note' => '',
+            'created_at' => Carbon::parse('2025-03-13')
+        ]);
+        Data::insert([
+            'resi' => '123xxx',
             'customer' => 'bb',
             'courier' => 'jnt',
-            'note' => 'hehe',
-            'created_at' => Carbon::parse('2025-02-17')
+            'note' => '',
+            'created_at' => Carbon::parse('2025-03-14')
+        ]);
+        Data::insert([
+            'resi' => '123xxx',
+            'customer' => 'bbb',
+            'courier' => 'jnt',
+            'note' => '',
+            'created_at' => Carbon::parse('2025-03-14')
         ]);
         Data::insert([
             'resi' => '321xxx',
-            'customer' => 'bc',
+            'customer' => 'c',
             'courier' => 'jnt',
             'note' => 'hehe',
-            'created_at' => Carbon::parse('2025-02-18')
+            'created_at' => Carbon::parse('2025-03-15')
         ]);
         Data::insert([
             'resi' => '321xxx',
             'customer' => 'cc',
             'courier' => 'jnt',
             'note' => 'hehe',
-            'created_at' => Carbon::parse('2025-02-19')
+            'created_at' => Carbon::parse('2025-03-15')
         ]);
         Data::insert([
             'resi' => '321xxx',
-            'customer' => 'cd',
+            'customer' => 'ccc',
             'courier' => 'jnt',
             'note' => 'hehe',
-            'created_at' => Carbon::parse('2025-02-20')
+            'created_at' => Carbon::parse('2025-03-15')
+        ]);
+        Data::insert([
+            'resi' => '321xxx',
+            'customer' => 'd',
+            'courier' => 'jnt',
+            'note' => 'hehe',
+            'created_at' => Carbon::parse('2025-03-16')
         ]);
         Data::insert([
             'resi' => '321xxx',
             'customer' => 'dd',
             'courier' => 'jnt',
             'note' => 'hehe',
-            'created_at' => Carbon::parse('2025-02-21')
+            'created_at' => Carbon::parse('2025-03-17')
+        ]);
+        Data::insert([
+            'resi' => '321xxx',
+            'customer' => 'ddd',
+            'courier' => 'jnt',
+            'note' => 'hehe',
+            'created_at' => Carbon::parse('2025-03-18')
+        ]);
+        Data::insert([
+            'resi' => '321xxx',
+            'customer' => 'e',
+            'courier' => 'jnt',
+            'note' => 'hehe',
+            'created_at' => Carbon::parse('2025-03-19')
+        ]);
+        Data::insert([
+            'resi' => '321xxx',
+            'customer' => 'ee',
+            'courier' => 'jnt',
+            'note' => 'hehe',
+            'created_at' => Carbon::parse('2025-03-20')
         ]);
     }
 }
